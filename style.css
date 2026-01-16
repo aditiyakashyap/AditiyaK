@@ -1,8 +1,8 @@
 /* --- VARIABLES & RESET --- */
 :root {
-    --bg-color: #0b0c10; /* Deep Executive Charcoal */
+    --bg-color: #0b0c10;
     --surface-color: #1f2833;
-    --platinum: #e5e4e2; /* Platinum Silver */
+    --platinum: #e5e4e2;
     --text-main: #f5f6fa;
     --text-dim: #c5c6c7;
     --font-heading: 'Cinzel', serif;
@@ -10,17 +10,8 @@
     --easing: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
@@ -40,7 +31,7 @@ body {
     z-index: -1; pointer-events: none;
 }
 
-/* --- CUSTOM CURSOR --- */
+/* --- CURSOR --- */
 .cursor-dot {
     width: 6px; height: 6px; background-color: var(--platinum);
     position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none;
@@ -132,83 +123,69 @@ h1, h2, h3 { font-family: var(--font-heading); text-transform: uppercase; letter
 .section-header { text-align: center; margin-bottom: 3rem; }
 .separator { width: 40px; height: 2px; background-color: var(--platinum); margin: 0 auto; }
 
-/* --- PROFILE & EXPERTISE (FIXED LAYOUT) --- */
+/* --- PROFILE & EXPERTISE --- */
 .profile-grid {
     display: grid;
-    gap: 3rem;
-    align-items: center; 
-    justify-content: center;
-    grid-template-columns: 1fr; 
-}
-
-@media (min-width: 900px) {
-    .profile-grid {
-        grid-template-columns: 1.2fr 0.8fr; /* Gives text more space than image */
-        gap: 6rem;
-    }
-}
-
-.expertise-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.expertise-item {
-    display: flex;
-    gap: 1.5rem;
+    gap: 4rem;
     align-items: center;
-    padding: 1.2rem;
+    grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+    .profile-grid { grid-template-columns: 1.2fr 0.8fr; gap: 6rem; }
+}
+
+.expertise-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+.expertise-item {
+    display: flex; gap: 1.5rem; align-items: center; padding: 1.2rem;
     border-left: 3px solid var(--platinum);
     background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
     transition: transform 0.3s;
 }
 .expertise-item:hover { transform: translateX(10px); }
-
 .expertise-item i { font-size: 1.8rem; color: var(--platinum); min-width: 40px; text-align: center; }
 .expertise-item h4 { color: #fff; margin-bottom: 0.3rem; font-weight: 700; font-size: 1.1rem; }
 .expertise-item span { font-size: 0.95rem; color: var(--text-dim); line-height: 1.4; display: block; }
 
-/* Smart Image Frame - Fixes Cropping */
+/* Smart Image Frame - Main Profile */
 .image-frame {
-    position: relative;
-    width: 100%;
-    max-width: 450px;
-    margin: 0 auto;
-    border-radius: 4px;
+    position: relative; width: 100%; max-width: 450px; margin: 0 auto;
 }
-
 .image-frame img {
-    width: 100%;
-    height: auto; 
-    max-height: 600px;
+    width: 100%; height: auto;
+    /* This ensures a balanced portrait shape */
+    aspect-ratio: 3/4; 
     object-fit: cover;
+    /* Fixes "Heads Cut Off" - aligns to top! */
+    object-position: top center; 
     display: block;
     border: 1px solid rgba(255,255,255,0.1);
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 
-.corner-border {
-    position: absolute;
-    width: 50px; height: 50px;
-    border: 3px solid var(--platinum);
-    z-index: 2;
-}
+.corner-border { position: absolute; width: 50px; height: 50px; border: 3px solid var(--platinum); z-index: 2; }
 .top-left { top: -15px; left: -15px; border-right: none; border-bottom: none; }
 .bottom-right { bottom: -15px; right: -15px; border-left: none; border-top: none; }
 
-
-/* --- GALLERY --- */
+/* --- GALLERY (3-COLUMN FIX) --- */
 .gallery-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile */
+    gap: 2rem;
 }
+@media (min-width: 768px) {
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); } /* Desktop 3-col */
+}
+
 .gallery-item {
-    position: relative; overflow: hidden; aspect-ratio: 1/1;
+    position: relative; overflow: hidden;
+    /* Forces perfect square shape */
+    aspect-ratio: 1/1; 
     border: 1px solid rgba(255,255,255,0.1); background: #000;
 }
 .gallery-item img {
-    width: 100%; height: 100%; object-fit: cover;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: top center; /* Fixes cropping */
     filter: grayscale(100%); transition: 0.5s; display: block;
 }
 .gallery-item:hover img { filter: grayscale(0%); transform: scale(1.05); }
@@ -246,5 +223,4 @@ footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: #555; bord
 @media (max-width: 768px) {
     .nav-links { display: none; }
     .hero-content h1 { font-size: 2.8rem; }
-    .gallery-grid { grid-template-columns: repeat(1, 1fr); }
 }
