@@ -132,33 +132,72 @@ h1, h2, h3 { font-family: var(--font-heading); text-transform: uppercase; letter
 .section-header { text-align: center; margin-bottom: 3rem; }
 .separator { width: 40px; height: 2px; background-color: var(--platinum); margin: 0 auto; }
 
-/* --- PROFILE --- */
-.profile-grid { display: grid; gap: 3rem; align-items: center; }
-@media (min-width: 900px) { .profile-grid { grid-template-columns: 1fr 1fr; gap: 5rem; } }
+/* --- PROFILE & EXPERTISE (FIXED LAYOUT) --- */
+.profile-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center; 
+    justify-content: center;
+    grid-template-columns: 1fr; 
+}
 
-.expertise-list { display: flex; flex-direction: column; gap: 1rem; }
+@media (min-width: 900px) {
+    .profile-grid {
+        grid-template-columns: 1.2fr 0.8fr; /* Gives text more space than image */
+        gap: 6rem;
+    }
+}
+
+.expertise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
 .expertise-item {
-    display: flex; gap: 1.5rem; align-items: flex-start; padding: 1rem;
-    border-left: 2px solid var(--platinum); background: rgba(255,255,255,0.03);
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.2rem;
+    border-left: 3px solid var(--platinum);
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+    transition: transform 0.3s;
 }
-.expertise-item i { font-size: 1.5rem; color: var(--platinum); margin-top: 5px; }
-.expertise-item h4 { color: #fff; margin-bottom: 0.2rem; font-weight: 700; }
-.expertise-item span { font-size: 0.9rem; color: var(--text-dim); }
+.expertise-item:hover { transform: translateX(10px); }
 
+.expertise-item i { font-size: 1.8rem; color: var(--platinum); min-width: 40px; text-align: center; }
+.expertise-item h4 { color: #fff; margin-bottom: 0.3rem; font-weight: 700; font-size: 1.1rem; }
+.expertise-item span { font-size: 0.95rem; color: var(--text-dim); line-height: 1.4; display: block; }
+
+/* Smart Image Frame - Fixes Cropping */
 .image-frame {
-    position: relative; width: 100%; max-width: 400px; margin: 0 auto;
-    aspect-ratio: 3/4;
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    border-radius: 4px;
 }
-.image-frame img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(100%); transition: 0.5s;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-.image-frame:hover img { filter: grayscale(0%); }
 
-.corner-border { position: absolute; width: 40px; height: 40px; border: 2px solid var(--platinum); }
-.top-left { top: -10px; left: -10px; border-right: none; border-bottom: none; }
-.bottom-right { bottom: -10px; right: -10px; border-left: none; border-top: none; }
+.image-frame img {
+    width: 100%;
+    height: auto; 
+    max-height: 600px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.corner-border {
+    position: absolute;
+    width: 50px; height: 50px;
+    border: 3px solid var(--platinum);
+    z-index: 2;
+}
+.top-left { top: -15px; left: -15px; border-right: none; border-bottom: none; }
+.bottom-right { bottom: -15px; right: -15px; border-left: none; border-top: none; }
+
 
 /* --- GALLERY --- */
 .gallery-grid {
